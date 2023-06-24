@@ -11,7 +11,7 @@ def on_mouse_click(x, y, button, pressed):
     if button == Button.right and not interface.paused:
         if pressed:
             cell_values = [int(cell.get()) if cell.get().isdigit() else 0 for cell in interface.cells]
-            if cell_values:
+            if any(cell_values):
                 random_number = choices(numbers, cell_values)[0]
                 pyautogui.press(str(random_number))
 
