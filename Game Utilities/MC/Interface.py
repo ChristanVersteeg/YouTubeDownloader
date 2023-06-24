@@ -47,6 +47,3 @@ class Interface:
 
     def run(self):
         self.window.mainloop()
-
-interface = Interface()
-interface.run()
