@@ -1,4 +1,5 @@
 import tkinter as tk
+import sys
 
 class Interface:
     def __init__(self):
@@ -6,7 +7,7 @@ class Interface:
         self.cells = []
         self.odds_labels = []
         self.paused = False
-        self.window.iconbitmap('ChiseledSandstone.ico')
+        self.window.iconbitmap(sys._MEIPASS + '\\ChiseledSandstone.ico' if hasattr(sys, '_MEIPASS') else 'ChiseledSandstone.ico')
         self.window.title("")
         
         validate_cmd = (self.window.register(self.validate_input), "%P")
