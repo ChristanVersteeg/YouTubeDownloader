@@ -18,7 +18,7 @@ class Interface:
             cell.grid(row=i, column=1, padx=10, pady=10)
             self.cells.append(cell)
 
-            odds_label = tk.Label(self.window, text="", width=4)
+            odds_label = tk.Label(self.window, text="", width=5)
             odds_label.grid(row=i, column=2, padx=10, pady=10)
             self.odds_labels.append(odds_label)
 

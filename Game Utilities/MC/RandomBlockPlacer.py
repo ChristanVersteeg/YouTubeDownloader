@@ -5,7 +5,7 @@ import keyboard
 from threading import Thread
 from Interface import Interface
 
-numbers = list(range(10))
+numbers = list(range(1, 10)) + [0]
 
 paused = False
 
@@ -18,9 +18,9 @@ keyboard.on_press(on_key_press)
 def on_mouse_click(x, y, button, pressed):
     if button == Button.right and not paused:
         if pressed:
-            cell_values = [int(cell.get()) for cell in interface.cells if cell.get()]
+            cell_values = [int(cell.get()) if cell.get().isdigit() else 0 for cell in interface.cells]
             if cell_values:
-                random_number = choices(numbers, k=1)[0]
+                random_number = choices(numbers, cell_values)[0]
                 pyautogui.press(str(random_number))
 
 interface = Interface()
