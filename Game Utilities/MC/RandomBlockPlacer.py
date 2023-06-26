@@ -1,11 +1,10 @@
 from random import choices
 import pyautogui
 from pynput.mouse import Listener, Button
-import keyboard
 from threading import Thread
 from Interface import Interface
 
-numbers = list(range(1, 10)) + [0]
+numbers = list(range(1, 10))
 
 def on_mouse_click(x, y, button, pressed):
     if button == Button.right and not interface.paused:

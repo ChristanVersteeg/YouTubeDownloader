@@ -12,10 +12,8 @@ class Interface:
         
         validate_cmd = (self.window.register(self.validate_input), "%P")
 
-        for i in range(10):
-            reversed_index = (i + 1) % 10
-
-            label = tk.Label(self.window, text=f"Slot {reversed_index}")
+        for i in range(9):
+            label = tk.Label(self.window, text=f"Slot {i + 1}")
             label.grid(row=i, column=0, padx=10, pady=10)
 
             cell = tk.Entry(self.window, width=2, validate="key", validatecommand=validate_cmd)
