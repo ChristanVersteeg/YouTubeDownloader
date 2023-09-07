@@ -14,11 +14,15 @@ https://youtu.be/lz156C981fs
 
 EXTENSION = ".mp4"
 TEMP_PATH = "Temp/"
+EXPORT_PATH = "Exports/"
 
-if not os.path.exists(TEMP_PATH): os.mkdir(TEMP_PATH)
+def mkdir_not_exists(path): os.mkdir(path) if not os.path.exists(path) else None
+
+mkdir_not_exists(TEMP_PATH)
 windll.kernel32.SetFileAttributesW(TEMP_PATH, 0x2)
+mkdir_not_exists(EXPORT_PATH)
 
-#If you want it clean you could use TITLE = fr"{re.sub(r'[^\w\s]', '', YT.title)}{EXTENSION}",
+#If you want it clean you could use TITLE = fr"{sub(r'[^\w\s]', '', YT.title)}{EXTENSION}",
 TITLE = sub(r'[^\w\s]', '', YT.title) + EXTENSION 
 TEMP_TITLE = f"{TEMP_PATH}{TITLE}"
 #but that only works in Python 3.12, which is in pre-release.
@@ -31,7 +35,6 @@ class Type(Enum):
     
 for type in Type: YT.streams.filter(only_video = type.value == Type.VIDEO.value, only_audio = type.value == Type.AUDIO.value).first().download(filename=type.value)
 
-VideoFileClip(Type.VIDEO.value).set_audio(AudioFileClip(Type.AUDIO.value)).write_videofile(TEMP_TITLE)
+VideoFileClip(Type.VIDEO.value).set_audio(AudioFileClip(Type.AUDIO.value)).write_videofile(f"{EXPORT_PATH}{TITLE}")
 
-os.rename(TEMP_TITLE, TITLE)
 rmtree(TEMP_PATH)
