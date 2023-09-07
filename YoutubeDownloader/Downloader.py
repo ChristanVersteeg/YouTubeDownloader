@@ -1,37 +1,29 @@
-#Made by Christan Versteeg; https://github.com/ChristanVersteeg/python_projects/tree/main/YoutubeDownloader
-
-import os
-import re
-import shutil
-import pytube
-from enum import Enum
+from yt_dlp import YoutubeDL
 from moviepy.editor import VideoFileClip, AudioFileClip
-import ctypes
-VIDEO_URL = """
-https://youtu.be/lz156C981fs
-"""
-YT = pytube.YouTube(VIDEO_URL)
 
-EXTENSION = ".mp4"
-TEMP_PATH = "./Temp/"
+URL = ["https://youtu.be/nwPtcqcqz00"]
+EXTENSION = '.webm'
 
-if not os.path.exists(TEMP_PATH): os.mkdir(TEMP_PATH)
-ctypes.windll.kernel32.SetFileAttributesW(TEMP_PATH, 0x2)
+video = {
+    'format': 'bestvideo',  
+    'outtmpl': 'video.%(ext)s', 
+}
 
-#If you want it clean you could use TITLE = fr"{re.sub(r'[^\w\s]', '', YT.title)}{EXTENSION}",
-TITLE = re.sub(r'[^\w\s]', '', YT.title) + EXTENSION 
-TEMP_TITLE = f"{TEMP_PATH}{TITLE}"
-#but that only works in Python 3.12, which is in pre-release.
+audio = {
+    'format': 'bestaudio/best',
+    'outtmpl': 'audio.%(ext)s',
+}
 
-if os.path.exists(TITLE): os.remove(TITLE)
+#title = ''
 
-class Type(Enum):
-    VIDEO = f"{TEMP_PATH}video{EXTENSION}"
-    AUDIO = f"{TEMP_PATH}audio{EXTENSION}"
+def download(options):
+    with YoutubeDL(options) as ydl:
+        ydl.download(URL)
+        #global title
+        #title = ydl.extract_info(URL, download=False).get('title', 'Title not available')
+download(video)
+download(audio)
+
+
+VideoFileClip(f'video{EXTENSION}').set_audio(AudioFileClip(f'audio{EXTENSION}')).write_videofile('pain')
     
-for type in Type: YT.streams.filter(only_video = type.value == Type.VIDEO.value, only_audio = type.value == Type.AUDIO.value).first().download(filename=type.value)
-
-VideoFileClip(Type.VIDEO.value).set_audio(AudioFileClip(Type.AUDIO.value)).write_videofile(TEMP_TITLE)
-
-os.rename(TEMP_TITLE, TITLE)
-shutil.rmtree(TEMP_PATH)
