@@ -14,16 +14,29 @@ audio = {
     'outtmpl': 'audio.%(ext)s',
 }
 
-#title = ''
-
+# Download video and audio
 def download(options):
     with YoutubeDL(options) as ydl:
         ydl.download(URL)
-        #global title
-        #title = ydl.extract_info(URL, download=False).get('title', 'Title not available')
+
 download(video)
 download(audio)
 
+# Specify the codec for the output video
+video_codec = 'libx264'  # You can change this codec if needed
 
-VideoFileClip(f'video{EXTENSION}').set_audio(AudioFileClip(f'audio{EXTENSION}')).write_videofile('pain')
-    
+# Create a video clip from the video file
+video_clip = VideoFileClip(f'video{EXTENSION}')
+
+# Create an audio clip from the audio file
+audio_clip = AudioFileClip(f'audio{EXTENSION}')
+
+# Set the audio of the video clip
+video_clip = video_clip.set_audio(audio_clip)
+
+# Write the video file with the specified codec
+video_clip.write_videofile('agony.mp4', codec=video_codec)
+
+# Close the clips
+video_clip.close()
+audio_clip.close()
