@@ -1,3 +1,6 @@
+#This code is unoptimised unsorted garbage, but it works, I needed to download one specific video so I probably also won't be working on this anymore.
+#Use the one on the main branch if your video has no such restrictions.
+
 from yt_dlp import YoutubeDL
 from moviepy.editor import VideoFileClip, AudioFileClip
 
