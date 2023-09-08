@@ -1,4 +1,4 @@
-#Made by Christan Versteeg; https://github.com/ChristanVersteeg/python_projects/tree/main/YoutubeDownloader
+#Made by Christan Versteeg; https://github.com/ChristanVersteeg/YouTubeDownloader
 
 import os
 from re import sub
@@ -9,7 +9,7 @@ from moviepy.editor import VideoFileClip, AudioFileClip
 from ctypes import windll
 
 YT = YouTube("""
-https://youtu.be/lz156C981fs
+https://youtu.be/dQw4w9WgXcQ
 """)
 
 EXTENSION = ".mp4"
